@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Heading of Purchases Field  -->
+    <string name="label_purchase">购买</string>
+    <!--  Title of Purchases Field  -->
+    <string name="title_purchase">恢复购买</string>
+    <!--  Description of Purchases Field  -->
+    <string name="description_purchase">登录Play Store以恢复您以前已付费的课程的访问权限</string>
+</resources>

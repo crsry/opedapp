@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/dialog_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/dialog_padding_top_material">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/dialog_dismiss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:padding="@dimen/edx_quarter_margin"
+                android:scaleType="center"
+                app:srcCompat="@drawable/ic_close"
+                app:tint="@color/primaryBaseColor" />
+
+            <TextView
+                android:id="@+id/dialog_title"
+                style="@style/regular_primary_base_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/widget_margin_quadruple"
+                android:layout_marginBottom="@dimen/edx_margin"
+                android:fontFamily="?attr/fontSemiBold"
+                android:gravity="start"
+                android:text="@string/course_modal_heading"
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="@dimen/edx_xx_large" />
+
+            <include
+                android:id="@+id/layout_upgrade_feature"
+                layout="@layout/layout_upgrade_features" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/layout_upgrade_btn"
+                layout="@layout/layout_upgrade_btn" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

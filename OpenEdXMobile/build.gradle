@@ -1,0 +1,589 @@
+import org.edx.builder.TaskHelper
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath 'org.yaml:snakeyaml:1.29'
+        //Included for NewRelic
+        classpath "com.newrelic.agent.android:agent-gradle-plugin:$newrelic_version"
+        //Screenshot testing library
+        classpath 'com.facebook.testing.screenshot:plugin:0.14.0'
+        classpath "com.google.gms:google-services:$gms_google_services"
+        // Jacoco-android Wrapper : https://github.com/arturdm/jacoco-android-gradle-plugin
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.5'
+    }
+}
+
+apply plugin: 'edxapp'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt' //To enable data binding with kotlin
+apply plugin: 'com.dicedmelon.gradle.jacoco-android'
+edx {
+    platform = ANDROID
+}
+
+apply plugin: 'newrelic'
+apply plugin: 'com.facebook.testing.screenshot'
+apply from: file('gradle_scripts/AndroidHelper.gradle')
+apply plugin: 'dagger.hilt.android.plugin'
+jacoco {
+    toolVersion = "0.8.8"
+}
+// Inspiration https://medium.com/@android2ee/playing-with-gradle-3-and-some-few-code-coverage-on-android-with-jacoco-47df7c9328ae
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    // ref: https://stackoverflow.com/a/68139455
+    jacoco.excludes = ['jdk.internal.*']
+}
+/**
+ * Computes a semantic version string, e.g. "1.0" or "2.5.7" by parsing git branches or tags.
+ * Branch name takes priority, otherwise the last annotated tag name will be used.
+ * @return The semantic version string, or "0.0.1" if we failed to determine one.
+ */
+def getVersionName = { ->
+    def description = "0.0.1"
+    try {
+        def branch = System.getenv("BRANCH")
+        if (null == branch || branch.isEmpty()) {
+            def branchout = new ByteArrayOutputStream()
+            exec {
+                commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+                standardOutput = branchout
+            }
+            branch = branchout.toString().trim()
+        }
+
+        def hasSemanticVersion = { s ->
+            // This branch/tag contains a semantic version (e.g. "rc/2.6.0" or "release/2.5")
+            return s.indexOf("rc/") >= 0 || s.indexOf("release/") >= 0
+        }
+        if (hasSemanticVersion(branch)) {
+            description = branch
+        } else {
+            def stdout = new ByteArrayOutputStream()
+            exec {
+                commandLine 'git', 'describe'
+                standardOutput = stdout
+            }
+            def describe = stdout.toString().trim()
+            if (hasSemanticVersion(describe)) {
+                description = describe
+            }
+        }
+    }
+    catch (e) {
+        logger.error("Could not determine version name", e)
+    }
+    return description.substring(description.indexOf("/") + 1).split("-")[0].trim()
+}
+
+/**
+ * @return An integer representation of the string returned by getVersionName()
+ */
+def getVersionCode = { ->
+    try {
+        def versionName = getVersionName()
+        def semVer = versionName.split('\\.')
+        def vCode
+        vCode = semVer[0].toInteger() * 1000000 // Major version
+        if (semVer.length > 1) {
+            vCode += semVer[1].toInteger() * 1000 // Minor version
+            if (semVer.length > 2) {
+                vCode += semVer[2].toInteger() * 1 // Patch version
+            }
+        }
+        return vCode
+    } catch (e) {
+        logger.error("Could not determine version code", e)
+        return 1
+    }
+}
+
+task(version) doLast {
+    println String.format('%s (%s)', getVersionName(), getVersionCode())
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: '*.jar')
+
+    // Webview crash fix after update the library
+    // Inspiration: https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/461#issuecomment-696772172
+    implementation "androidx.appcompat:appcompat:$androidXAppCompactVersion"
+    implementation "androidx.recyclerview:recyclerview:$androidXVersion"
+    implementation "androidx.cardview:cardview:$androidXVersion"
+    // For the optional Nullable annotation
+    implementation "androidx.annotation:annotation:$androidXVersion"
+    // Kotlin Extensions
+    implementation "androidx.core:core-ktx:$androidXKotlinCore"
+    implementation "androidx.fragment:fragment-ktx:$androidXKotlinFramgnet"
+    // For view model via hilt including ViewModelProvide.Factory
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidXLifeCycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidXLifeCycle"
+
+    // NOTE: Always update the version of google-services and firebase libraries using the ones
+    // provided in this link: https://developers.google.com/android/guides/releases
+    implementation "com.google.android.gms:play-services-plus:16.0.0"
+    implementation "com.google.android.gms:play-services-analytics:16.0.8"
+    implementation "com.google.android.gms:play-services-auth:16.0.1"
+    // Google Firebase
+    implementation "com.google.firebase:firebase-core:16.0.9"
+    implementation "com.google.firebase:firebase-messaging:20.2.0"
+
+    // Add the dependency for the Performance Monitoring library
+    implementation 'com.google.firebase:firebase-perf:17.0.2'
+    // Firebase remote config
+    implementation 'com.google.firebase:firebase-config:16.5.0'
+
+    // Exo Player
+    implementation 'com.google.android.exoplayer:exoplayer:2.16.0'
+
+    // Google cast sdk
+    implementation "androidx.mediarouter:mediarouter:$androidXVersion"
+    implementation 'com.google.android.gms:play-services-cast-framework:16.2.0'
+
+    implementation 'com.facebook.android:facebook-login:11.1.1'
+    implementation 'com.microsoft.identity.client:msal:0.3+'
+    implementation 'commons-lang:commons-lang:2.6'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation "org.greenrobot:eventbus:3.3.1"
+    implementation 'com.squareup.phrase:phrase:1.1.0'
+    /*
+     * REASON FOR NOT UPGRADING Okhttp TO LATEST VERSION
+     * OkHttp works on Android 5.0+ (API level 21+) and on Java 8+.
+     * The OkHttp 3.12.x branch supports Android 2.3+ (API level 9+) and Java 7+. These platforms
+     * lack support for TLS 1.2 and should not be used. But because upgrading is difficult we will
+     * backport critical fixes to the 3.12.x branch through December 31, 2020.
+     * Ref: https://square.github.io/okhttp/#requirements
+     */
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    /* Exclude dependencies defined statically at the top-
+     * level, to prevent them from being resolved to the
+     * latest version as a result of dynamic version
+     * definitions in the transitive dependencies.
+     */
+    implementation ('com.squareup.retrofit2:retrofit:2.9.0') {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+    implementation ('com.squareup.retrofit2:converter-gson:2.9.0') {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'de.hdodenhof:circleimageview:2.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation ('com.github.bumptech.glide:okhttp3-integration:4.11.0')
+
+    // Segment Library
+    implementation 'com.segment.analytics.android:analytics:4.10.4'
+    // Segment's Firebase integration
+    implementation 'com.segment.analytics.android.integrations:firebase:1.2.0'
+    // Segment's GA integration
+    implementation('com.segment.analytics.android.integrations:google-analytics:1.0.0') {
+        exclude module: 'play-services-analytics'
+        transitive = true
+    }
+
+    // Firebase Crashlytics SDK
+    implementation ('com.google.firebase:firebase-crashlytics:17.2.2'){
+        exclude group: 'javax.inject'
+        transitive = true
+    }
+
+    // Recommended: Add the Google Analytics SDK along Firebase Crashlytics SDK
+    implementation 'com.google.firebase:firebase-analytics:17.4.2'
+
+    // Branch SDK
+    // Check this link for guide to updating Branch integration:
+    // https://help.branch.io/developers-hub/docs/android-basic-integration
+    implementation("io.branch.sdk.android:library:5.2.0") {
+        exclude module: 'answers-shim'
+    }
+    implementation "com.google.android.gms:play-services-ads-identifier:18.0.1"
+    implementation "com.android.installreferrer:installreferrer:2.2"
+    implementation "androidx.browser:browser:1.3.0"
+
+    //New Relic Integration
+    implementation "com.newrelic.agent.android:android-agent:$newrelic_version"
+
+    // ViewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    // Material components like Chips and TabLayoutMediator
+    implementation 'com.google.android.material:material:1.5.0-alpha02'
+
+    // Braze SDK Integration
+    implementation 'com.appboy:appboy-segment-integration:7.0.0'
+
+    // test project configuration
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.test.ext:junit-ktx:1.1.1'
+    testImplementation 'androidx.test:core-ktx:1.2.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    // To mock static classes
+    testImplementation 'org.mockito:mockito-inline:3.4.0'
+    testImplementation ("org.mockito:mockito-core:2.19.0"){
+        exclude group: 'org.hamcrest'
+    }
+    testImplementation "org.robolectric:robolectric:4.7.3"
+    testImplementation "com.github.nimbl3:robolectric.shadows-supportv4:4.1-SNAPSHOT"
+    testImplementation "org.robolectric:shadows-multidex:4.0.1"
+    testImplementation 'org.assertj:assertj-core:2.5.0'
+    /**
+     * AssertJ has been deprecated and doesn't support AndroidX classes.
+     * Ref: https://github.com/square/assertj-android
+     * Instead of AssertJ we should move towards Truth library that they recommend instead.
+     * Ref: https://truth.dev/comparison.html
+     */
+    testImplementation ('com.squareup.assertj:assertj-android:1.1.1') {
+        exclude group: 'com.android.support'
+    }
+    testImplementation ('com.squareup.assertj:assertj-android-support-v4:1.1.1') {
+        exclude group: 'com.android.support'
+    }
+    testImplementation ('com.squareup.assertj:assertj-android-appcompat-v7:1.1.1') {
+        exclude group: 'com.android.support'
+    }
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.0'
+    testImplementation ('com.squareup.retrofit2:retrofit-mock:2.9.0') {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+
+    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.12.1'
+    androidTestImplementation ('org.mockito:mockito-core:2.8.9'){
+        exclude group: 'org.hamcrest'
+    }
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KOTLIN_VERSION}"
+    implementation "com.android.billingclient:billing-ktx:$kotlin_version_billing"
+
+    // dependency on Shimmer for Android
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
+
+    /**
+     * Using debugImplementation here, so that LeakCanary only runs with debug variants of the builds.
+     * p.s. it won't run with the debuggable variant.
+     *
+     * Following link explains setting up LeakCanary for different product flavors:
+     * https://square.github.io/leakcanary/recipes/#setting-up-leakcanary-for-different-product-flavors
+     */
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
+    // Hilt build dependencies
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    // For instrumentation tests
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-compiler:$hilt_version"
+    // For local unit tests
+    testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptTest "com.google.dagger:hilt-compiler:$hilt_version"
+}
+
+configurations {
+    androidTestImplementation.exclude group: 'javax.inject'
+    androidTestImplementation.exclude group: 'javax.annotation'
+}
+
+def config = new TaskHelper().loadConfig(project)
+def firebaseConfig = config.get('FIREBASE')
+def firebaseEnabled = firebaseConfig?.get('ENABLED')
+if (firebaseEnabled ?: false) {
+    apply plugin: 'com.google.gms.google-services'
+    /*
+     * Getting some libraries conflict after adding the microsoft client library for microsoft SSO
+     * another at an exact version (e.g. [1.3.1 ,2.3]).", so adding the following statement to
+     * resolve the build issue.
+     * Ref: https://stackoverflow.com/a/57479692
+     */
+    googleServices {
+        disableVersionCheck = true
+    }
+    // Apply the Performance Monitoring plugin to enable instrumentation
+    apply plugin: 'com.google.firebase.firebase-perf'
+    // Firebase Crashlytics plugin.
+    apply plugin: 'com.google.firebase.crashlytics'
+}
+// Variable to check if Firebase Cloud Messaging is enabled
+def fcmEnabled = config.get('PUSH_NOTIFICATIONS') && firebaseEnabled && firebaseConfig?.get('CLOUD_MESSAGING_ENABLED')
+
+// Variable to check if Microsoft is enabled
+def microsoftConfig = config.get("MICROSOFT")
+def isMicrosoftEnabled = microsoftConfig && microsoftConfig.get("ENABLED")
+def microsoftSignature = ""
+if (isMicrosoftEnabled) {
+// Validate Microsoft configurations
+    AndroidHelper.isValidConfigurations(microsoftConfig)
+    microsoftSignature = microsoftConfig.get("SIGNATURE_HASH")
+}
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+
+    flavorDimensions "default"
+
+    defaultConfig {
+        applicationId APPLICATION_ID
+        // minimum version is Android 5.0
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+
+        versionCode getVersionCode()
+        versionName getVersionName()
+
+        renderscriptTargetApi 22
+        renderscriptSupportModeEnabled true
+
+        vectorDrawables.useSupportLibrary = true
+
+        // test configuration
+        testApplicationId 'org.edx.mobile.test'
+
+        for (task in project.gradle.startParameter.taskNames) {
+            if (task.contains("ScreenshotTest")) {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("package", "org.edx.mobile.test.screenshot");
+                setTestInstrumentationRunnerArguments map
+            }
+        }
+
+        testInstrumentationRunner "org.edx.mobile.test.EdXTestRunner"
+
+        testHandleProfiling true
+        testFunctionalTest true
+        testBuildType "debuggable"
+
+        // Enabling multidex support.
+        multiDexEnabled true
+
+        def platformName = config.get('PLATFORM_NAME')
+        resValue "string", "platform_name", platformName
+
+        def appShortcutName = config.get('APP_SHORTCUT_NAME')
+        if (appShortcutName == null) {
+            appShortcutName = platformName
+        }
+        resValue "string", "shortcut_name", appShortcutName
+
+        def phoneticPlatformName = config.get('PHONETIC_PLATFORM_NAME')
+        if (phoneticPlatformName == null) {
+            phoneticPlatformName = platformName
+        }
+        resValue "string", "phonetic_platform_name", phoneticPlatformName
+
+        def branchKey = ""
+        def branch = config.get('BRANCH')
+        if (branch != null && branch.get('ENABLED')) {
+            branchKey = branch.get('KEY')
+            if (null == branchKey) {
+                throw new GradleException("You must set BRANCH_KEY if Branch is enabled")
+            }
+        }
+
+        def facebookAppId = ""
+        def fbLoginProtocolScheme = ""
+        def facebook = config.get('FACEBOOK')
+        if (facebook?.get('ENABLED')) {
+            facebookAppId = facebook.get('FACEBOOK_APP_ID')
+            if (null == facebookAppId) {
+                throw new GradleException("You must set FACEBOOK_APP_ID if FACEBOOK is enabled")
+            }
+            fbLoginProtocolScheme = "fb"+facebookAppId
+        }
+
+        manifestPlaceholders = [supportsRtl          : "true",
+                                firebaseEnabled      : firebaseEnabled ?: false,
+                                fcmEnabled           : fcmEnabled,
+                                branchKey            : branchKey,
+                                facebookAppId        : facebookAppId,
+                                microsoftSignature   : microsoftSignature,
+                                fbLoginProtocolScheme: fbLoginProtocolScheme,
+                                sdCardEnabled        : config.get('DOWNLOAD_TO_SD_CARD_ENABLED') ?: true]
+
+        testOptions.unitTests.includeAndroidResources = true
+        // Exclude auto generated files from the code coverage report
+        jacocoAndroidUnitTestReport {
+            excludes += ['**/R.class',
+                         '**/R$*.class',
+                         '**/*$ViewInjector*.*',
+                         '**/BuildConfig.*',
+                         '**/Manifest*.*',
+                         'android/databinding/**',
+                         'com/android/databinding/**',
+                         '**/androidx/databinding/**',
+                         '**/AnnotationDatabaseImpl.class' // Generated by RoboBlender
+            ]
+        }
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/java']
+            renderscript.srcDirs = ['src/main/java']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml.
+        // This moves them out of default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+
+        if (project.hasProperty('RES_DIR')) {
+            prod.res.srcDirs = [RES_DIR]
+        }
+
+        if (project.hasProperty('ASSETS')) {
+            prod.assets.srcDirs = [ASSETS]
+        }
+        // Shared directory of both unit and instrumentation to use common base classes.
+        String sharedTestDir = 'src/sharedTest/java'
+        test {
+            java.srcDirs += sharedTestDir
+        }
+        androidTest {
+            java.srcDirs += sharedTestDir
+        }
+    }
+
+    lintOptions {
+        abortOnError true
+        showAll true
+        warning 'TypographyQuotes', 'InvalidPackage'
+        error 'StopShip', 'ContentDescription'
+        warning 'MissingTranslation'
+        warning 'ImpliedQuantity'
+    }
+
+    productFlavors {
+        prod {
+            if (project.hasProperty('APPLICATION_ID')) {
+                applicationId APPLICATION_ID
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+            pseudoLocalesEnabled true // Set device language to "en_XA" to test glyphs, or "ar_XB" to test RTL support
+        }
+        debuggable.initWith(buildTypes.debug)
+        debuggable {
+            testCoverageEnabled = false // Set to "false" to work around debugger issue: https://code.google.com/p/android/issues/detail?id=123771
+            matchingFallbacks = ["debug"]
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Only apply release signing configurations if keystore.properties is available
+            if (project.file('signing/keystore.properties').exists()) {
+                apply from: 'signing/signing.gradle'
+            }
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    project.ext { appName = 'edx' }
+                    outputFileName  = "${project.ext.appName}-${variant.buildType.name}-${versionName}.apk"
+                }
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'APK LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    testOptions {
+         unitTests.all {
+             maxHeapSize '1g'
+         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+android.applicationVariants.all { variant ->
+    def variantName = variant.name.capitalize()
+    def taskName = "applyConfig" + variantName
+    def configureTask = project.task(taskName) doLast {
+        AndroidHelper.saveProcessedConfig(project, config)
+    }
+    def generateTask = project.tasks.getByName("generate" + variantName + "Resources")
+    generateTask.dependsOn(configureTask)
+    // Task that generate google-services.json from the configs and execute before the
+    // google-services.json validation
+    if (firebaseEnabled) {
+        def serviceJsonTask = "generate$variantName" + "GoogleServicesJson"
+        project.task(serviceJsonTask).doFirst {
+            AndroidHelper.saveGoogleServicesJson(project, firebaseConfig)
+        }
+        def googleServicesJsonValidationTask = "process$variantName" + "GoogleServices"
+        tasks.getByName(googleServicesJsonValidationTask).dependsOn(serviceJsonTask)
+    }
+
+    // The task that generates auth_config.json for the config and executes for the Microsoft
+    // authentication
+    if (isMicrosoftEnabled) {
+        def configJsonTask = "generate$variantName" + "MicrosoftConfigs"
+        project.task(configJsonTask).doFirst {
+            AndroidHelper.saveMicrosoftAuthConfigs(project, microsoftConfig)
+        }
+        generateTask.dependsOn(configJsonTask)
+    } else {
+        // If Microsoft authentication is disabled then create an empty configuration file to make
+        // the build without any compilation error.
+        def microsoftConfigsJsonPath = project.projectDir.toString() + "/res/raw/auth_config.json"
+        new FileWriter(microsoftConfigsJsonPath).withWriter {
+            it.write("")
+        }
+    }
+
+    def mandatoryFileTask = "verify$variantName" + "MandatoryFiles"
+    project.task(mandatoryFileTask).doFirst {
+        AndroidHelper.checkRequiredFileExistence(project)
+    }
+    generateTask.dependsOn(mandatoryFileTask)
+
+    tasks.all { task ->
+        if (task.name.startsWith("test")) {
+            task.mustRunAfter(configureTask)
+        }
+    }
+}

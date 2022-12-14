@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Heading of Purchases Field  -->
+    <string name="label_purchase">المشتريات</string>
+    <!--  Title of Purchases Field  -->
+    <string name="title_purchase">استعادة المشتريات</string>
+    <!--  Description of Purchases Field  -->
+    <string name="description_purchase">سجّل الدخول إلى متجر Play لاستعادة الوصول إلى الدورات التدريبية التي دفعتها سابقًا للترقية</string>
+</resources>

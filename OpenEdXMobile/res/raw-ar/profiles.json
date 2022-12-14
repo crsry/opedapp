@@ -1,0 +1,46 @@
+{
+    "fields":[
+    {
+              "name" : "account_privacy",
+              "label" : "يمكن للطلاب الآخرين رؤية:",
+              "type" : "switch",
+              "data_type" : "boolean",
+              "options" : {
+                "values" : [
+                            { "name" : "الملف الشخصي الكامل", "value" : "all_users" },
+                            { "name" : "الملف الشخصي المحدود",  "value" : "private" }
+                 ]
+              },
+              "instructions" : "الملف الشخصي المحدود يشارك فقط اسم المستخدم وصورة الملف الشخصي.",
+              "accessibility_hint" : "تغيير المعلومات التي تتم مشاركتها مع الآخرين."
+    },
+    {
+              "name" : "country",
+              "label" : "موقعك",
+              "type" : "select",
+              "data_type" : "country",
+              "options" : {
+                "reference" : "countries",
+                "allows_none" : true,
+                "none_label" : "لا يوجد موقع"
+              }
+    },
+    {
+              "name" : "language_proficiencies",
+              "label" : "اللغة المتحدثة",
+              "type" : "select",
+              "data_type" : "language",
+              "options" : {
+                "reference" : "languages",
+                "allows_none" : true,
+                "none_label" : "لا توجد لغة منطوقة"
+              }
+    },
+    {
+              "name" : "bio",
+              "label" : "عنّي",
+              "type" : "textarea",
+              "placeholder" : "اود أن اتعلم..."
+    }
+    ]
+}

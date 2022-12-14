@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:divider="@drawable/edx_divider"
+            app:showDividers="middle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/widget_margin"
+                android:paddingBottom="@dimen/widget_margin">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edx_margin">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        style="@style/profile_image"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        app:civ_border_width="1dp"
+                        tools:src="@drawable/profile_photo_placeholder" />
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/profile_image_progress"
+                        android:layout_width="@dimen/edx_base"
+                        android:layout_height="@dimen/edx_base"
+                        android:indeterminate="true"
+                        android:layout_gravity="center"
+                        app:indicatorSize="@dimen/edx_large"
+                        app:trackThickness="@dimen/edx_x_quarter_margin"
+                        app:indicatorColor="@color/accentAColor" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edx_margin"
+                    android:layout_weight="1"
+                    android:textColor="@color/primaryBaseColor"
+                    android:textSize="@dimen/edx_base"
+                    tools:text="username" />
+
+                <TextView
+                    android:id="@+id/change_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="@string/edit_user_profile_change_photo_description"
+                    android:drawablePadding="@dimen/x_small_icon_margin"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/edx_margin"
+                    android:paddingEnd="@dimen/edx_margin"
+                    android:text="@string/edit_user_profile_change_photo"
+                    android:textColor="@color/disableable_button_text"
+                    android:textSize="@dimen/edx_x_small"
+                    app:drawableStartCompat="@drawable/ic_camera_alt"
+                    app:drawableTint="@color/disableable_button_text" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/fields"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:divider="@drawable/edx_divider"
+                app:showDividers="middle|end" />
+
+            <LinearLayout
+                android:id="@+id/ll_profile_visibility_off"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edx_double_margin"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/edx_default_margin"
+                android:paddingEnd="@dimen/edx_default_margin">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/edx_half_margin"
+                    android:src="@drawable/ic_visibility_off"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_profile_visibility_off"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="?attr/fontRegular"
+                    android:textColor="@color/neutralXDark"
+                    android:textSize="@dimen/edx_x_small"
+                    tools:text="@string/profile_visibility_off_message" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <include layout="@layout/loading_indicator" />
+
+    </FrameLayout>
+</ScrollView>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Button text to show user Video Settings screen -->
+    <string name="label_video_settings">اعدادات الفيديو</string>
+    <!-- Title of Video Quality Dialog -->
+    <string name="video_download_quality_title">جودة تنزيل الفيديو</string>
+    <!-- Auto Video Quality option -->
+    <string name="auto_recommended_text">تلقائى (موصى به)</string>
+    <!-- 360p Video Quality option -->
+    <string name="video_quality_p360">360 بكسل (أصغر حجم للملف)</string>
+    <!-- 540p Video Quality option -->
+    <string name="video_quality_p540">540 بكسل</string>
+    <!-- 720p Video Quality option -->
+    <string name="video_quality_p720">720 بكسل (أفضل جودة)</string>
+    <!-- Message shows in Video Quality dialog -->
+    <string name="video_download_quality_message">هذا الإعداد لجميع تنزيلات الفيديو في تطبيق {platform_name}.</string>
+
+    <!-- Label for the Download to sd-card setting -->
+    <string name="settings_download_to_sdcard_title">تحميل الفيديو إلى كرت الذاكرة</string>
+    <!-- Label explaining the download location setting in detail -->
+    <string name="settings_download_to_sdcard_subtitle">سيتم تحميل الفيديوهات إلى كرت الذاكرة في حال التمكن من ذلك</string>
+    <!-- Label indicating that the only course content visible in the app is videos -->
+    <string name="lbl_showing_only_videos">يتم عرض ملفات الفيديو فقط</string>
+    <!-- Title of prompt indicating issue loading a video -->
+    <string name="network_error_header">خطأ أثناء تحميل الفيديو</string>
+    <!-- Content of prompt indicating issue loading a video -->
+    <string name="network_error_message">رجاء تأكد من اتصالك بالإنترنت.</string>
+
+    <!-- Download error messages -->
+    <!-- Label shown on video list item whose download failed -->
+    <string name="error_download_failed">فشل التحميل</string>
+    <!-- Confirmation message shown when attempting to download a large quantity of video data -->
+    <string name="file_size_exceeded">حجم التحميل يتجاوز المساحة المتبقية على جهازك.</string>
+    <!-- Confirmation message shown when attempting to download a large quantity of video data -->
+    <string name="download_exceed_message">مقاطع الفيديو التي اخترتها حجمها أكبر من 1 غيغابت.
+        فهل ترغب في تنزيلها؟</string>
+
+    <!-- Message shown when user attempts to download a video over cellular data,
+    but has chosen to only allow video downloads over wifi -->
+    <string name="wifi_off_message">إعدادات التنزيل الخاصة بك تسمح بتنزيل الملفات من خلال الـ Wi-Fi فقط.
+      رجاء اتصل بالإنترنت من خلال الـ Wi-Fi أو قم بتغيير إعداداتك.</string>
+
+    <!-- Google Cast -->
+    <!-- Description of a button that will cast/un-cast the app to a remote device -->
+    <string name="media_route_menu_title">تشغيل التطبيق على…</string>
+    <!-- Google cast Introduction title -->
+    <string name="introducing_cast_text">التعريف بتقنية Cast</string>
+    <!-- Text to describe that video is casting on the remote device -->
+    <string name="remote_device_casting_message">جارٍ بث الفيديو على جهاز بعيد</string>
+
+    <!-- Label explaining toggle for cellular data access -->
+    <string name="wifi_dialog_message_help">السماح للجهاز بتحميل الفيديو باستخدام بيانات الشبكة عندما يكون الـ Wi-Fi غير متاح. قد يتم تطبيق رسوم البيانات.</string>
+    <!-- Info message text for to let use know how many videos were deleted -->
+    <plurals name="delete_video_snackbar_msg">
+        <item quantity="zero">تم حذف %s مقطع فيديو</item>
+        <item quantity="one">تم حذف %s مقطع فيديو</item>
+        <item quantity="two">تم حذف %s مقاطع فيديو</item>
+        <item quantity="few">تم حذف %s مقاطع فيديو</item>
+        <item quantity="many">تم حذف %s مقطع فيديو</item>
+        <item quantity="other">تم حذف %s مقطع فيديو</item>
+    </plurals>
+
+    <!-- Subtitle labels for video durations in hours-->
+    <plurals name="video_duration_hour">
+        <item quantity="zero">%d ساعة</item>
+        <item quantity="one">%d ساعة</item>
+        <item quantity="two">%d ساعتان</item>
+        <item quantity="few">%d ساعات</item>
+        <item quantity="many">%d ساعات</item>
+        <item quantity="other">%d ساعات</item>
+    </plurals>
+    <!-- Subtitle labels for video durations in minutes-->
+    <plurals name="video_duration_minutes">
+        <item quantity="zero">%d دقيقة</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">%d دقيقة</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقائق</item>
+        <item quantity="other">%d دقائق</item>
+    </plurals>
+</resources>

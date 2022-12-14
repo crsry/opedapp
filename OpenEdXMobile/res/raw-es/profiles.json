@@ -1,0 +1,46 @@
+{
+    "fields":[
+    {
+              "name" : "account_privacy",
+              "label" : "Otros estudiantes pueden ver mi:",
+              "type" : "switch",
+              "data_type" : "boolean",
+              "options" : {
+                "values" : [
+                            { "name" : "Perfil Completo", "value" : "all_users" },
+                            { "name" : "Perfil Limitado",  "value" : "private" }
+                 ]
+              },
+              "instructions" : "Un perfil limitado comunica solo tu nombre de usuario y tu foto.  ",
+              "accessibility_hint" : "Cambia la información que es compartida con otras personas."
+    },
+    {
+              "name" : "country",
+              "label" : "Ubicación",
+              "type" : "select",
+              "data_type" : "country",
+              "options" : {
+                "reference" : "countries",
+                "allows_none" : true,
+                "none_label" : "Sin ubicación"
+              }
+    },
+    {
+              "name" : "language_proficiencies",
+              "label" : "Idioma hablado.",
+              "type" : "select",
+              "data_type" : "language",
+              "options" : {
+                "reference" : "languages",
+                "allows_none" : true,
+                "none_label" : "Idioma no hablado."
+              }
+    },
+    {
+              "name" : "bio",
+              "label" : "Acerca de mí",
+              "type" : "textarea",
+              "placeholder" : "Me gustaría aprender..."
+    }
+    ]
+}

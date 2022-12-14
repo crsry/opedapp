@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Heading of Purchases Field  -->
+    <string name="label_purchase">רכישות</string>
+    <!--  Title of Purchases Field  -->
+    <string name="title_purchase">לשחזר רכישות</string>
+    <!--  Description of Purchases Field  -->
+    <string name="description_purchase">היכנס לחנות Play כדי לשחזר גישה לקורסים ששילמת בעבר כדי לשדרג</string>
+</resources>

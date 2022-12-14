@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_message_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/registration_message_panel_margin"
+    android:layout_marginTop="@dimen/widget_margin_half"
+    android:layout_marginEnd="@dimen/registration_message_panel_margin"
+    android:background="@drawable/rectangle_border_background"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/message_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/widget_margin_half"
+        android:layout_marginEnd="@dimen/widget_margin_half"
+        android:contentDescription="@null"
+        android:gravity="center"
+        app:srcCompat="@drawable/ic_check" />
+
+    <TextView
+        android:id="@+id/message_body"
+        style="@style/regular_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/widget_margin"
+        android:gravity="start"
+        android:text="@string/error_message"
+        android:textSize="@dimen/edx_x_small" />
+</LinearLayout>

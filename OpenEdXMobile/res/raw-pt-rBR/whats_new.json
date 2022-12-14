@@ -1,0 +1,179 @@
+[
+  {
+    "version": "3.1",
+    "messages": [
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Qualidade do baixar do vídeo",
+        "message": "Personalize suas configurações de transferências de vídeo no seu Perfil ou na aba \"Vídeo\" do seu curso."
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_2",
+        "title": "Melhorias no suporte a idiomas",
+        "message": "Adicionamos mais traduções ao aplicativo para que você possa aprender no edX do seu jeito!"
+      }
+    ]
+  },
+  {
+    "version": "2.26",
+    "messages": [
+      {
+        "platforms": [
+          "ios",
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Sincronize com o calendário",
+        "message": "Nunca mais perca um prazo: sincronize as datas do curso com o calendário do seu telefone para receber lembretes!"
+      }
+    ]
+  },
+  {
+    "version": "2.25",
+    "messages": [
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Retomar curso",
+        "message": "Nunca mais perca seu lugar: agora ficou fácil retomar os estudos de onde você parou."
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_2",
+        "title": "Marcas de seleção",
+        "message": "Para que você possa acompanhar seu progresso, marcaremos os itens à medida que eles forem concluídos."
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_3",
+        "title": "Celebrações",
+        "message": "Compartilhe sua jornada de aprendizado com seus amigos e comemore o que você conquistou."
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_4",
+        "title": "Melhorias na página de datas",
+        "message": "Agora você pode acessar as unidades diretamente na página de datas, por meio de links rápidos."
+      }
+    ]
+  },
+  {
+    "version": "2.24",
+    "messages": [
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Novo visual",
+        "message": "Percebeu algo diferente? Modernizamos nosso visual e começamos a fazer algumas atualizações que ajudarão você a alcançar suas metas de aprendizado com mais facilidade."
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_2",
+        "title": "Todas as datas do curso em um só lugar",
+        "message": "Veja todas as datas importantes do seu curso em um só lugar na guia \\\"Datas\\\". Você nunca mais perderá um prazo!"
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_3",
+        "title": "Cronogramas de aprendizado personalizados",
+        "message": "Quando você está matriculado em um curso que segue o seu ritmo, agora é possível ver seu cronograma de aprendizado personalizado com as datas de entrega no seu telefone. Também é possível alterar as datas de entrega quando você precisa ajustar seu cronograma: é o seu curso do seu jeito!"
+      }
+    ]
+  },
+  {
+    "version": "2.23",
+    "messages": [
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Experiência de descoberta aprimorada",
+        "message": "Melhoramos a maneira como você pesquisa e se inscreve em seus cursos e programas favoritos."
+      }
+    ]
+  },
+  {
+    "version": "2.22",
+    "messages": [
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Mais opções de velocidade de reprodução",
+        "message": "Adicionamos mais opções para controlar a velocidade do vídeo para atender às suas necessidades."
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_2",
+        "title": "Retroceder e encaminhar vídeos",
+        "message": "Nós ouvimos você! Agora você pode retroceder ou encaminhar os vídeos para chegar ao ponto exato em que isso importa."
+      }
+    ]
+  },
+  {
+    "version": "2.21",
+    "messages": [
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Suporte para o Chromecast",
+        "message": "Quer assistir a vídeos do curso em uma tela maior? Com a adição do suporte para o Chromecast, agora você pode!"
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_2",
+        "title": "Player do YouTube",
+        "message": "Está cansado de sair do app para assistir a vídeos do curso no YouTube? Agora você pode visualizá-los em um player integrado ao app."
+      },
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_3",
+        "title": "Login da Microsoft",
+        "message": "Agora você pode se cadastrar ou fazer login com uma conta da Microsoft."
+      }
+    ]
+  },
+  {
+    "version": "2.20",
+    "messages": [
+      {
+        "platforms": [
+          "android"
+        ],
+        "image": "screen_1",
+        "title": "Suporte expandido ao idioma",
+        "message": "Agora você pode ver o aplicativo edX em língua alemã, francês, português, chinês e turco. O aplicativo usa o idioma do seu dispositivo para especificar essa configuração."
+      }
+    ]
+  }
+]

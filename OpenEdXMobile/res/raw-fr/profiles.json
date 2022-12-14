@@ -1,0 +1,46 @@
+{
+    "fields":[
+    {
+              "name" : "account_privacy",
+              "label" : "Other learners can see my:",
+              "type" : "switch",
+              "data_type" : "boolean",
+              "options" : {
+                "values" : [
+                            { "name" : "Full Profile", "value" : "all_users" },
+                            { "name" : "Limited Profile",  "value" : "private" }
+                 ]
+              },
+              "instructions" : "A limited profile only shares your username and profile photo.",
+              "accessibility_hint" : "Change what information is shared with others."
+    },
+    {
+              "name" : "country",
+              "label" : "Location",
+              "type" : "select",
+              "data_type" : "country",
+              "options" : {
+                "reference" : "countries",
+                "allows_none" : true,
+                "none_label" : "No location"
+              }
+    },
+    {
+              "name" : "language_proficiencies",
+              "label" : "Spoken language",
+              "type" : "select",
+              "data_type" : "language",
+              "options" : {
+                "reference" : "languages",
+                "allows_none" : true,
+                "none_label" : "No spoken language"
+              }
+    },
+    {
+              "name" : "bio",
+              "label" : "About me",
+              "type" : "textarea",
+              "placeholder" : "I would like to learn..."
+    }
+    ]
+}

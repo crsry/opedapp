@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chapter_row_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/course_outline_list_item_min_height"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/widget_margin_half">
+
+    <LinearLayout
+        android:id="@+id/chapter_row_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/edx_margin"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/course_item_vertical_padding"
+        android:paddingBottom="@dimen/course_item_vertical_padding">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/widget_margin"
+            android:layout_marginEnd="@dimen/widget_margin"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/row_title"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="@dimen/widget_margin"
+                android:contentDescription="@string/course_outline_completion_description"
+                android:gravity="center_vertical"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_green_check"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/row_title"
+                style="@style/regular_edx_black_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/completed"
+                android:drawablePadding="@dimen/edx_half_margin"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/widget_margin_half"
+                android:textDirection="locale"
+                android:textSize="@dimen/edx_base"
+                tools:text="Title" />
+
+            <LinearLayout
+                android:id="@+id/row_subtitle_panel"
+                style="@style/regular_grey_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/row_title"
+                android:layout_alignStart="@+id/row_title"
+                android:layout_marginTop="@dimen/edx_x_quarter_margin"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/row_subtitle_icon"
+                    android:layout_width="@dimen/ic_large"
+                    android:layout_height="@dimen/ic_large"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="@dimen/widget_margin_half"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_fact_check"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/row_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="@dimen/widget_margin_double"
+                    android:textColor="@color/neutralXXDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/edx_small"
+                    android:visibility="gone"
+                    tools:text="Subtitle"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/row_subtitle_video_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:textColor="@color/neutralXXDark"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/edx_small"
+                    android:visibility="gone"
+                    tools:text="28.4 MB"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/locked_content"
+            android:layout_width="@dimen/course_unit_block_listing_icon_width"
+            android:layout_height="@dimen/course_unit_block_listing_icon_height"
+            android:baselineAlignBottom="true"
+            android:paddingStart="@dimen/edx_quarter_margin"
+            android:paddingEnd="@dimen/course_unit_block_listing_icon_padding_end"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_lock"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/bulk_download_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/widget_margin_half"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:paddingEnd="@dimen/widget_margin_half"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="@dimen/download_background_size"
+                android:layout_height="@dimen/download_background_size">
+
+                <View
+                    android:id="@+id/download_background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_holo_background"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/bulk_download"
+                    android:layout_width="@dimen/ic_large"
+                    android:layout_height="@dimen/ic_large"
+                    android:layout_gravity="center"
+                    android:minWidth="@dimen/small_icon_size"
+                    android:minHeight="@dimen/small_icon_size"
+                    app:srcCompat="@drawable/ic_download" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/loading_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:visibility="visible"
+                    app:indicatorSize="@dimen/edx_large"
+                    app:trackThickness="@dimen/edx_x_quarter_margin"
+                    tools:visibility="visible" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/no_of_videos"
+                style="@style/semibold_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/widget_margin_half"
+                android:layout_marginEnd="@dimen/widget_margin_half"
+                android:textColor="@color/primaryXLightColor"
+                android:textSize="@dimen/edx_small"
+                android:visibility="gone"
+                tools:text="0"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/row_whole_separator"
+        style="@style/gray_separator" />
+
+</LinearLayout>

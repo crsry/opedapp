@@ -1,0 +1,39 @@
+import org.ajoberstar.grgit.*
+import org.ajoberstar.grgit.exception.*
+
+buildscript {
+    dependencies {
+        classpath 'org.ajoberstar:grgit:1.0.0'
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+def edXAppPluginSetup(url, ref = null) {
+    def buildSrc = new File(rootProject.projectDir, 'plugins')
+    buildSrc.mkdirs()
+    def dest = new File(buildSrc, "edx-app-gradle-plugin")
+
+    if (!dest.exists()) {
+        Grgit.clone(dir: dest, uri: url)
+    }
+
+    def grgit = Grgit.open(dir: dest)
+    try {
+        grgit.fetch()
+
+        if (ref != null) {
+            grgit.checkout(branch: ref)
+        }
+    }
+    catch (GrgitException e) {
+        println("Could not fetch latest version of app gradle plugin. This is probably due to lack of an internet connection. Skipping")
+    }
+}
+
+edXAppPluginSetup('https://github.com/openedx/edx-app-gradle-plugin')
+
+include "plugins"
+project(':plugins').projectDir = file('plugins/edx-app-gradle-plugin')
+

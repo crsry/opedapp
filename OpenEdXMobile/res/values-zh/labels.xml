@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <!--Divider between current time and total time. For example  "2:33/5:10"-->
+  <string name="lbl_slash">/</string>
+  <!--Button allowing user to open a web page corresponding to the current screen in a web browser-->
+  <string name="lbl_view_on_web">在网页中查看</string>
+  <!--A button's label that reloads the content on screen-->
+  <string name="lbl_reload">刷新</string>
+  <!--Dialog Fragment Labels-->
+  <!--Alert dialog cancel button-->
+  <string name="label_cancel">取消</string>
+  <!--Alert dialog No button-->
+  <string name="label_no">否</string>
+  <!--Alert dialog download button-->
+  <string name="label_download">下载</string>
+  <!--Alert dialog yes confirmation button-->
+  <string name="label_yes">是</string>
+  <!--Alert dialog delete confirmation button-->
+  <string name="label_delete">删除</string>
+  <!--Alert dialog okay button-->
+  <string name="label_ok">确定</string>
+  <!--Alert dialog close button-->
+  <string name="label_close">关闭</string>
+  <!--Alert dialog continue confirmation button-->
+  <string name="label_continue">继续</string>
+  <!--Alert dialog submit button-->
+  <string name="label_submit">提交</string>
+  <!--Alert dialog send feedback button-->
+  <string name="label_send_feedback">发送反馈</string>
+  <!--Alert dialog maybe later button-->
+  <string name="label_maybe_later">稍后再说</string>
+  <!--Alert dialog rate the app button-->
+  <string name="label_rate_the_app">给 App 评分</string>
+  <!--Alert dialog and snackbar button for opening an app store to update the app to the latest version-->
+  <string name="label_update">更新</string>
+  <!--Alert dialog Don't allow button-->
+  <string name="label_do_not_allow">不允许</string>
+  <!--Alert dialog View Event button-->
+  <string name="label_view_events">查看活动</string>
+  <!--Alert dialog Update now button-->
+  <string name="label_update_now">立即更新</string>
+  <!--Alert dialog Remove button-->
+  <string name="label_remove">删除
+</string>
+  <!--Done button label-->
+  <string name="label_done">完成</string>
+  <!--Undo button label-->
+  <string name="label_undo">撤销</string>
+  <!--Label denoting an error-->
+  <string name="label_error">错误</string>
+  <!--Customer support text, using as button title for disabled user-->
+  <string name="label_customer_support">用户支持</string>
+</resources>

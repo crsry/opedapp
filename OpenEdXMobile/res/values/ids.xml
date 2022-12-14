@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Course Outline screen tabs ids-->
+    <item name="course_outline" type="id" />
+    <item name="videos" type="id" />
+    <item name="discussion" type="id" />
+    <item name="important_dates" type="id" />
+    <item name="resources" type="id" />
+</resources>

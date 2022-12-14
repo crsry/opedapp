@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bulk_download_view_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/neutralXLight"
+        android:contentDescription="@string/view_downloads"
+        android:minHeight="@dimen/download_view_min_height"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <FrameLayout
+            android:id="@+id/icon_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/widget_margin_double"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/ic_large"
+                android:layout_height="@dimen/ic_large"
+                app:srcCompat="@drawable/ic_videocam"
+                app:tint="@color/primaryBaseColor" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:indicatorSize="@dimen/edx_large"
+                app:trackThickness="@dimen/edx_x_quarter_margin" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/edx_margin"
+            android:layout_marginTop="@dimen/widget_margin_half"
+            android:layout_marginBottom="@dimen/widget_margin_half"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sw_download"
+            app:layout_constraintStart_toEndOf="@+id/icon_container"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/video_download_label_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="1 of 17 Videos Downloaded" />
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                style="@style/video_download_description_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bulk_download_description_top_margin"
+                android:textColor="@color/primaryXLightColor"
+                android:textSize="@dimen/edx_x_small"
+                tools:text="5.5MB of 67.5MB total" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sw_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/edx_margin"
+            android:padding="@dimen/widget_margin_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:theme="@style/bulk_download_switch" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pb_download"
+            style="@style/bulk_download_progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bulk_download_progress_height"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/row_whole_separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:progress="50"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/row_whole_separator"
+            style="@style/gray_separator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

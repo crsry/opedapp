@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="video_player_title" parent="@style/semibold_white_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingStart">@dimen/edx_margin</item>
+        <item name="android:paddingEnd">@dimen/video_player_controls_horizontal_padding</item>
+        <item name="android:textSize">@dimen/edx_small</item>
+        <item name="android:paddingTop">@dimen/edx_half_margin</item>
+        <item name="android:paddingBottom">@dimen/edx_half_margin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginStart">@dimen/widget_margin_half</item>
+        <item name="android:layout_marginEnd">@dimen/widget_margin_quadruple</item>
+    </style>
+
+    <style name="video_duration_text" parent="@style/semibold_white_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/video_player_duration_padding</item>
+        <item name="android:textSize">@dimen/edx_x_small</item>
+    </style>
+
+    <style name="flying_message">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">@dimen/edx_margin</item>
+        <item name="android:paddingEnd">@dimen/edx_margin</item>
+        <item name="android:paddingTop">@dimen/widget_margin_double</item>
+        <item name="android:paddingBottom">@dimen/widget_margin_double</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/edx_medium</item>
+        <item name="android:background">@color/transparent_download_bg</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="content_unavailable_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="content_unavailable_error_text" parent="bold_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/edx_margin</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:maxWidth">@dimen/fullscreen_message_max_width</item>
+        <item name="android:drawablePadding">@dimen/edx_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/neutralBlackT</item>
+        <item name="android:textSize">@dimen/edx_small</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="bold_grey_text" parent="@style/bold_text">
+        <item name="android:textColor">@color/neutralXXDark</item>
+    </style>
+
+    <style name="bold_white_text" parent="@style/bold_text">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="semibold_white_text" parent="@style/semibold_text">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="regular_grey_text" parent="@style/regular_text">
+        <item name="android:textColor">@color/neutralDark</item>
+    </style>
+
+    <style name="regular_white_text" parent="@style/regular_text">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="bold_edx_brand_primary_base_text" parent="@style/bold_text">
+        <item name="android:textColor">@color/primaryBaseColor</item>
+    </style>
+
+    <style name="bold_edx_black_text" parent="@style/bold_text">
+        <item name="android:textColor">@color/neutralBlackT</item>
+    </style>
+
+    <style name="semi_bold_primary_base_text" parent="@style/semibold_text">
+        <item name="android:textColor">@color/primaryBaseColor</item>
+    </style>
+
+    <style name="regular_edx_black_text" parent="@style/regular_text">
+        <item name="android:textColor">@color/neutralBlackT</item>
+    </style>
+
+    <style name="regular_primary_base_text" parent="@style/regular_text">
+        <item name="android:textColor">@color/primaryBaseColor</item>
+    </style>
+
+    <style name="regular_primary_x_light_text" parent="@style/regular_text">
+        <item name="android:textColor">@color/primaryXLightColor</item>
+    </style>
+
+    <style name="regular_neutral_xx_dark_text" parent="@style/regular_text">
+        <item name="android:textColor">@color/neutralXXDark</item>
+    </style>
+
+    <style name="campaign_launch_text" parent="bold_text">
+        <item name="android:textSize">@dimen/edx_xxxx_large</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/primaryXLightColor</item>
+        <item name="android:gravity">center</item>
+        <item name="lineHeight">@dimen/fullscreen_message_line_height</item>
+    </style>
+    
+    <style name="account_option" parent="@style/regular_white_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_drawer_menu</item>
+        <item name="android:textColor">@color/primaryBaseColor</item>
+        <item name="android:background">@drawable/selectable_box_overlay</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingBottom">@dimen/widget_margin</item>
+        <item name="android:paddingStart">@dimen/edx_margin</item>
+        <item name="android:paddingEnd">@dimen/edx_margin</item>
+        <item name="android:paddingTop">@dimen/widget_margin</item>
+        <item name="android:textSize">@dimen/edx_base</item>
+    </style>
+
+    <style name="bold_text">
+        <item name="android:fontFamily">?attr/fontSemiBold</item>
+    </style>
+
+    <style name="semibold_text">
+        <item name="android:fontFamily">?attr/fontSemiBold</item>
+    </style>
+
+    <style name="regular_text">
+        <item name="android:fontFamily">?attr/fontRegular</item>
+    </style>
+
+    <style name="text_network_error" parent="@style/semibold_white_text">
+        <item name="android:textSize">@dimen/edx_x_small</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Registration Error Message below fields-->
+    <style name="registration_error_message" parent="@android:style/Widget.DeviceDefault.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/errorBase</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textSize">@dimen/edx_xxx_small</item>
+        <item name="android:paddingEnd">@dimen/widget_margin_half</item>
+        <item name="android:paddingStart">@dimen/widget_margin_half</item>
+    </style>
+
+    <!-- Registration Instruction Message below fields-->
+    <style name="registration_instruction_message" parent="registration_error_message">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Course Card styles -->
+    <style name="course_card_title" parent="@style/bold_edx_black_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/edx_small</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="course_outline_card_title" parent="@style/bold_edx_black_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/edx_large</item>
+        <item name="lineHeight">@dimen/widget_margin_x_double</item>
+        <item name="android:gravity">top</item>
+    </style>
+
+    <style name="course_card_course_run" parent="@style/regular_neutral_xx_dark_text">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/edx_x_small</item>
+    </style>
+
+    <style name="course_outline_card_course_run" parent="@style/regular_neutral_xx_dark_text">
+        <item name="android:textSize">@dimen/edx_x_small</item>
+        <item name="lineHeight">@dimen/widget_margin_double</item>
+    </style>
+
+    <style name="edX.TextAppearance.Switch" parent="@style/semibold_text">
+        <item name="android:textColor">@color/switch_text_color</item>
+        <item name="android:textSize">@dimen/edx_small</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Discussion text styles -->
+    <style name="discussion_regular_text" parent="regular_edx_black_text">
+        <item name="android:textSize">@dimen/edx_small</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/discussion_responses_thread_text_view_spacing
+        </item>
+    </style>
+
+    <style name="discussion_title_text" parent="discussion_regular_text">
+        <item name="android:textSize">@dimen/edx_base</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="discussion_responses_small_text" parent="discussion_regular_text">
+        <item name="android:textColor">@color/neutralXDark</item>
+    </style>
+
+    <style name="discussion_responses_read" parent="discussion_regular_text">
+        <item name="android:textColor">@color/neutralXDark</item>
+    </style>
+
+    <style name="discussion_responses_action_bar_small_text" parent="discussion_responses_small_text">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/infoBase</item>
+    </style>
+
+    <style name="profile_field_title" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">?attr/fontSemiBold</item>
+        <item name="android:lineHeight" tools:ignore="NewApi">@dimen/widget_margin_double</item>
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:textSize">@dimen/edx_small</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="profile_field_description" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/edx_default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/edx_default_margin</item>
+        <item name="android:fontFamily">?attr/fontRegular</item>
+        <item name="android:lineHeight" tools:ignore="NewApi">@dimen/widget_margin_double</item>
+        <item name="android:textColor">@color/neutralXDark</item>
+        <item name="android:textSize">@dimen/edx_x_small</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="profile_field_heading" parent="profile_field_description">
+        <item name="android:fontFamily">?attr/secondaryFontRegular</item>
+    </style>
+
+    <style name="video_download_label_text_style" parent="regular_primary_base_text">
+        <item name="android:textSize">@dimen/edx_x_small</item>
+    </style>
+
+    <style name="video_download_description_text_style" parent="regular_primary_x_light_text">
+        <item name="android:textSize">@dimen/edx_x_small</item>
+    </style>
+</resources>

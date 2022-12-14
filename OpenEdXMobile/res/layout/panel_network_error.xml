@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_black_80"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_margin">
+
+    <TextView
+        android:id="@+id/error_header"
+        style="@style/text_network_error"
+        android:text="@string/network_error_header"
+        android:textSize="@dimen/edx_medium" />
+
+    <TextView
+        android:id="@+id/error_message"
+        style="@style/text_network_error"
+        android:layout_marginTop="@dimen/widget_margin_half"
+        android:text="@string/network_error_message" />
+
+</LinearLayout>

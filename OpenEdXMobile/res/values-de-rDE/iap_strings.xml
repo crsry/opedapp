@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Heading of Purchases Field  -->
+    <string name="label_purchase">Käufe</string>
+    <!--  Title of Purchases Field  -->
+    <string name="title_purchase">Einkäufe wiederherstellen</string>
+    <!--  Description of Purchases Field  -->
+    <string name="description_purchase">Melden Sie sich im Play Store an, um den Zugriff auf Kurse wiederherzustellen, für die Sie zuvor ein Upgrade bezahlt haben</string>
+</resources>

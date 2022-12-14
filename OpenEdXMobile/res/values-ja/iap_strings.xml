@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Heading of Purchases Field  -->
+    <string name="label_purchase">購入</string>
+    <!--  Title of Purchases Field  -->
+    <string name="title_purchase">購入内容を復元</string>
+    <!--  Description of Purchases Field  -->
+    <string name="description_purchase">Playストアにサインインして、過去に有料でアップグレードしたコースへのアクセスを復元します</string>
+</resources>

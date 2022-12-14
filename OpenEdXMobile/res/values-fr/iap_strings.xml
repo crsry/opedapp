@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Heading of Purchases Field  -->
+    <string name="label_purchase">Achats</string>
+    <!--  Title of Purchases Field  -->
+    <string name="title_purchase">Restaurer les achats</string>
+    <!--  Description of Purchases Field  -->
+    <string name="description_purchase">Connectez-vous au Play Store pour restaurer l\'accès aux cours que vous avez payés</string>
+</resources>
