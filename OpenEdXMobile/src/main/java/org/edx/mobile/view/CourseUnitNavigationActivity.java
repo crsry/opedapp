@@ -134,6 +134,7 @@ public class CourseUnitNavigationActivity extends CourseBaseActivity implements
                             BlockType.DRAG_AND_DROP_V2, BlockType.LTI_CONSUMER, BlockType.WORD_CLOUD);
                     pager2.setUserInputEnabled(!horizontalBlocks
                             .contains(pagerAdapter.getUnit(position).getType()));
+                    pager2.setUserInputEnabled(false);
                 }
             }
 
